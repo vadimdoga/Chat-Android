@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Chatik</string>
+
+    <string-array name="msg_image">
+        <item>@drawable/ic_profile_actionbar</item>
+    </string-array>
+    <string-array name="msg_name">
+        <item>Mai Power</item>
+        <item>Khalil Gonzalez</item>
+        <item>Shirley Friedman</item>
+        <item>Adelaide Robins</item>
+        <item>Carys Richard</item>
+        <item>Kie Quinn</item>
+        <item>Maddison Osborn</item>
+        <item>Kenzo Adams</item>
+        <item>Deon Buchanan</item>
+        <item>Husna Hanna</item>
+        <item>Maxine Butt</item>
+        <item>Ishika Beltran</item>
+        <item>Mathias Gates</item>
+        <item>Kasey Pace</item>
+        <item>Sammy Rhodes</item>
+    </string-array>
+    <string-array name="msg_shortMsg">
+        <item>Some msg...</item>
+    </string-array>
+    <string-array name="msg_time">
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>Yesterday</item>
+        <item>09:00</item>
+        <item>08:00</item>
+        <item>Yesterday</item>
+        <item>06:00</item>
+        <item>05:00</item>
+        <item>05:40</item>
+        <item>10:32</item>
+        <item>11:23</item>
+        <item>15:23</item>
+        <item>Yesterday</item>
+        <item>Yesterday</item>
+        <item>15:23</item>
+    </string-array>
+    <string-array name="contacts_phoneNumber">
+        <item>(+373)69921321</item>
+    </string-array>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.chatapp">
+
+    <dist:module dist:instant="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppThemeWithoutBar"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+        <activity
+            android:name=".chat.MenuActivity"
+            android:theme="@style/AppThemeWithBar" />
+        <activity android:name=".authentication.RegisterActivity" />
+        <activity android:name=".authentication.LoginActivity" />
+        <activity
+            android:name=".chat.ContactForm"
+            android:screenOrientation="portrait"
+            android:label="Add Contact"
+            android:theme="@style/AppThemeWithBar" />
+        <activity
+            android:name=".chat.EditProfileForm"
+            android:label="Edit Profile"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWithBar" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
