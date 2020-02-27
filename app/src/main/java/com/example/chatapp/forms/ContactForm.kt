@@ -1,34 +1,28 @@
-package com.example.chatapp.chat
+package com.example.chatapp.forms
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.chatapp.R
 import kotlinx.android.synthetic.main.contact_form.*
-import kotlinx.android.synthetic.main.edit_profile_form.*
-import org.w3c.dom.Text
-import java.lang.reflect.Array.set
 
-
-class EditProfileForm : AppCompatActivity() {
+class ContactForm : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.edit_profile_form)
-        
+        setContentView(R.layout.contact_form)
+
         val actionBar = supportActionBar
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        edit_profile_date.setOnClickListener{
-            val newFragment = DatePickerFragment(edit_profile_date)
-            newFragment.show(supportFragmentManager, "datePicker")
+        contact_form_img.setOnClickListener{
+            Toast.makeText(applicationContext,"upload",Toast.LENGTH_SHORT).show()
         }
-    }
 
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id: Int = item.itemId
@@ -48,5 +42,7 @@ class EditProfileForm : AppCompatActivity() {
         inflater.inflate(R.menu.form_bar, menu)
         return true
     }
+
+
 
 }

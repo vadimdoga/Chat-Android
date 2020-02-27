@@ -1,4 +1,4 @@
-package com.example.chatapp.chat
+package com.example.chatapp.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,13 +8,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.chatapp.ContactItem
 import com.example.chatapp.R
 
 class ContactsAdapter(private val contex : Context, private val contactItems: List<ContactItem>, private val listener: (ContactItem) -> Unit)
     : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            = ViewHolder(LayoutInflater.from(contex).inflate(R.layout.contacts_list_item, parent, false))
+            = ViewHolder(
+        LayoutInflater.from(contex).inflate(
+            R.layout.contacts_list_item,
+            parent,
+            false
+        )
+    )
 
     override fun getItemCount(): Int = contactItems.size
 

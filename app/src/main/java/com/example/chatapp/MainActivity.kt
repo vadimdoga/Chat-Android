@@ -3,9 +3,6 @@ package com.example.chatapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.chatapp.authentication.LoginActivity
-import com.example.chatapp.authentication.RegisterActivity
-import com.example.chatapp.chat.MenuActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

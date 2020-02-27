@@ -1,4 +1,4 @@
-package com.example.chatapp.chat.menuFragments
+package com.example.chatapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-
+import com.example.chatapp.adapters.ContactsAdapter
+import com.example.chatapp.forms.ContactForm
+import com.example.chatapp.ContactItem
 import com.example.chatapp.R
-import com.example.chatapp.chat.*
+
 import kotlinx.android.synthetic.main.fragment_contacts.*
-import kotlinx.android.synthetic.main.fragment_messages.*
 
 
 class Contacts : Fragment() {
@@ -34,8 +35,12 @@ class Contacts : Fragment() {
         initData()
 
         rv_contacts_list.layoutManager = LinearLayoutManager(activity)
-        rv_contacts_list.adapter = ContactsAdapter(this.requireContext(), contactItems){
-            val toast = Toast.makeText(activity?.applicationContext, it.phoneNumber, Toast.LENGTH_LONG )
+        rv_contacts_list.adapter = ContactsAdapter(
+            this.requireContext(),
+            contactItems
+        ) {
+            val toast =
+                Toast.makeText(activity?.applicationContext, it.phoneNumber, Toast.LENGTH_LONG)
             toast.show()
         }
 
@@ -50,7 +55,13 @@ class Contacts : Fragment() {
         val phoneNumber = resources.getStringArray(R.array.contacts_phoneNumber)
         contactItems.clear()
         for (i in name.indices){
-            contactItems.add(ContactItem(name[i], phoneNumber[0], image.getResourceId(0, 0)))
+            contactItems.add(
+                ContactItem(
+                    name[i],
+                    phoneNumber[0],
+                    image.getResourceId(0, 0)
+                )
+            )
         }
     }
     private fun toContactForm(){

@@ -1,31 +1,34 @@
-package com.example.chatapp.chat
+package com.example.chatapp.forms
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.chatapp.fragments.DatePickerFragment
 import com.example.chatapp.R
-import kotlinx.android.synthetic.main.contact_form.*
+import kotlinx.android.synthetic.main.edit_profile_form.*
 
-class ContactForm : AppCompatActivity() {
+
+class EditProfileForm : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.contact_form)
-
+        setContentView(R.layout.edit_profile_form)
+        
         val actionBar = supportActionBar
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        contact_form_img.setOnClickListener{
-            Toast.makeText(applicationContext,"upload",Toast.LENGTH_SHORT).show()
+        edit_profile_date.setOnClickListener{
+            val newFragment =
+                DatePickerFragment(
+                    edit_profile_date
+                )
+            newFragment.show(supportFragmentManager, "datePicker")
         }
-
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id: Int = item.itemId
@@ -45,7 +48,5 @@ class ContactForm : AppCompatActivity() {
         inflater.inflate(R.menu.form_bar, menu)
         return true
     }
-
-
 
 }

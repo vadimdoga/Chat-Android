@@ -1,13 +1,11 @@
-package com.example.chatapp.chat
+package com.example.chatapp.fragments
 
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.widget.DatePicker
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.edit_profile_form.*
 import java.util.*
 
 

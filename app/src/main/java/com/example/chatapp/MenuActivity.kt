@@ -1,6 +1,5 @@
-package com.example.chatapp.chat
+package com.example.chatapp
 
-import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,13 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.bumptech.glide.Glide
-import com.example.chatapp.R
-import com.example.chatapp.chat.menuFragments.Contacts
-import com.example.chatapp.chat.menuFragments.Messages
-import com.example.chatapp.chat.menuFragments.Profile
+import com.example.chatapp.fragments.Contacts
+import com.example.chatapp.fragments.Messages
+import com.example.chatapp.fragments.Profile
 import kotlinx.android.synthetic.main.activity_menu.*
-import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 class MenuActivity : AppCompatActivity() {
@@ -30,7 +26,9 @@ class MenuActivity : AppCompatActivity() {
         supportActionBar?.title = "   " + "My Name"
         supportActionBar?.setIcon(R.drawable.ic_profile_actionbar)
 
-        val adapter = viewPagerAdapter(supportFragmentManager)
+        val adapter = viewPagerAdapter(
+            supportFragmentManager
+        )
         adapter.addFragment(Messages())
         adapter.addFragment(Contacts())
         adapter.addFragment(Profile())

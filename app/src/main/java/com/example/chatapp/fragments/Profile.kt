@@ -1,4 +1,4 @@
-package com.example.chatapp.chat.menuFragments
+package com.example.chatapp.fragments
 
 
 import android.content.Intent
@@ -7,9 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import com.example.chatapp.forms.EditProfileForm
 import com.example.chatapp.R
-import com.example.chatapp.chat.EditProfileForm
+
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 
