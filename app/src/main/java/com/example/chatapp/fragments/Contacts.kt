@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatapp.adapters.ContactsAdapter
 import com.example.chatapp.forms.ContactForm
-import com.example.chatapp.ContactItem
+import com.example.chatapp.adapters.ContactItem
 import com.example.chatapp.R
 
 import kotlinx.android.synthetic.main.fragment_contacts.*

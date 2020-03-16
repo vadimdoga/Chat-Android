@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatapp.adapters.ChatAdapter
-import com.example.chatapp.ChatItem
+import com.example.chatapp.adapters.ChatItem
 import com.example.chatapp.R
 import kotlinx.android.synthetic.main.fragment_messages.*
 

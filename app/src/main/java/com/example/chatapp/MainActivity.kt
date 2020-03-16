@@ -24,8 +24,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        toMenu()
-
         login_btn.setOnClickListener{
             toLogin()
         }

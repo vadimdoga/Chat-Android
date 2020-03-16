@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.chatapp.ContactItem
 import com.example.chatapp.R
 
 class ContactsAdapter(private val contex : Context, private val contactItems: List<ContactItem>, private val listener: (ContactItem) -> Unit)
