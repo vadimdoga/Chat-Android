@@ -7,9 +7,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.chatapp.req.ApiService
+import com.example.chatapp.req.Phrases
+import com.example.chatapp.req.Profile
 import com.github.squti.androidwaverecorder.WaveRecorder
 import kotlinx.android.synthetic.main.activity_login.*
-
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class LoginActivity : AppCompatActivity() {
@@ -18,8 +25,24 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val subKey = "56cf040fd80a4687b344077f7566bd83"
-        val accKey = "f71b7467-aa6e-42f7-8fd1-8c4d08da9570"
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://vadim.cognitiveservices.azure.com/spid/v1.0/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val api = retrofit.create(ApiService::class.java)
+
+        api.getPhrases().enqueue(object: Callback<List<Phrases>>{
+            override fun onResponse(call: Call<List<Phrases>>, response: Response<List<Phrases>>) {
+                println(response.body())
+            }
+
+            override fun onFailure(call: Call<List<Phrases>>, t: Throwable) {
+                println("error")
+            }
+
+        })
+
         var waveRecorder: WaveRecorder? = null
 
         button_start_recording.setOnClickListener{
