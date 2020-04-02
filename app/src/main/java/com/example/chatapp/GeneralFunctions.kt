@@ -5,7 +5,10 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.gson.JsonElement
+import com.google.gson.JsonParser
 import me.relex.circleindicator.CircleIndicator
+import org.json.JSONObject
 
 class GeneralFunctions: AppCompatActivity() {
     fun positionIndicator(count:Int, position: Int, indicator: CircleIndicator){
@@ -29,5 +32,11 @@ class GeneralFunctions: AppCompatActivity() {
             ActivityCompat.requestPermissions(this, permissions,0)
             return false
         } else return true
+    }
+    fun createJsonBody(key: String, value: String): JsonElement {
+        val bodyObj = JSONObject()
+        bodyObj.put(key, value)
+        val jsonParser = JsonParser()
+        return jsonParser.parse(bodyObj.toString())
     }
 }

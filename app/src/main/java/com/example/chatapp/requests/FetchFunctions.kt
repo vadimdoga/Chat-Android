@@ -1,6 +1,7 @@
 package com.example.chatapp.requests
 
 import android.widget.*
+import com.example.chatapp.GeneralFunctions
 import com.example.chatapp.registerActivities.RegisterActivity1
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
@@ -20,7 +21,7 @@ class FetchFunctions{
         .create(ApiService::class.java)
 
     fun createProfile() {
-        val jsonObj = createJsonBody("locale", "en-us")
+        val jsonObj = GeneralFunctions().createJsonBody("locale", "en-us")
 
         CoroutineScope(Dispatchers.Main).launch {
             kotlin.runCatching {
@@ -96,15 +97,7 @@ class FetchFunctions{
         }
         return res
     }
-    private fun createJsonBody(key: String, value: String): JsonElement {
-        val bodyObj = JSONObject()
-        bodyObj.put(key, value)
-        val jsonParser = JsonParser()
-        return jsonParser.parse(bodyObj.toString())
-    }
     fun getPhrases(adapter: ArrayAdapter<String>){
-        val listPhrases = arrayListOf<String>()
-
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val res = api.getPhrases(
@@ -112,7 +105,6 @@ class FetchFunctions{
                     "en-US"
                 )
                 res.forEach{
-//                    listPhrases.add(it.phrase)
                     RegisterActivity1.addToArray(it.phrase)
                 }
                 println(RegisterActivity1.phrList)
