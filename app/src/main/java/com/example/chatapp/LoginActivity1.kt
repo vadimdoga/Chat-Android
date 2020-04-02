@@ -1,60 +1,43 @@
-package com.example.chatapp.registerActivities
+package com.example.chatapp
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.example.chatapp.AudioRecorder
-import com.example.chatapp.GeneralFunctions
-import com.example.chatapp.MainActivity
+import com.example.chatapp.registerActivities.RegisterActivity1
 import com.example.chatapp.requests.FetchFunctions
-import com.example.chatapp.R
+import kotlinx.android.synthetic.main.activity_login_1.*
 import kotlinx.android.synthetic.main.activity_register_1.*
 import me.relex.circleindicator.CircleIndicator
 
-class RegisterActivity1 : AppCompatActivity() {
-
-    companion object {
-        val phrList = arrayListOf<String>()
-
-        fun addToArray(el: String){
-            if (!phrList.contains(el)){
-                phrList.add(el)
-            }
-        }
-    }
+class LoginActivity1: AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register_1)
+        setContentView(R.layout.activity_login_1)
 
-        val intent = Intent(this, MainActivity::class.java)
-
-        val indicator: CircleIndicator = findViewById(R.id.register_1_indicator)
+        val indicator: CircleIndicator = findViewById(R.id.login_1_indicator)
         GeneralFunctions().positionIndicator(2,1, indicator)
 
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val fileName:String = getExternalFilesDir(null)?.absolutePath + "/audioFile.wav"
+        val audio = AudioRecorder(fileName, applicationContext)
+
         val spinnerAdapter = ArrayAdapter(
             applicationContext,
             android.R.layout.simple_spinner_item,
-            phrList
+            RegisterActivity1.phrList
         )
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = spinnerAdapter
-        spinner.onItemSelectedListener = object: OnItemSelectedListener{
+        spinner_login.adapter = spinnerAdapter
+        spinner_login.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -62,7 +45,7 @@ class RegisterActivity1 : AppCompatActivity() {
                 id: Long
             ) {
                 val phrase = parent?.getItemAtPosition(position).toString()
-                register_textPhrase.text = "Phrase: $phrase"
+                login_textPhrase.text = "Phrase: $phrase"
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -70,8 +53,6 @@ class RegisterActivity1 : AppCompatActivity() {
 
         FetchFunctions().getPhrases(spinnerAdapter)
 
-        val fileName:String = getExternalFilesDir(null)?.absolutePath + "/audioFile.wav"
-        val audio = AudioRecorder(fileName, applicationContext)
 
         val countDownTimer = object  : CountDownTimer(30000,1000){
             override fun onFinish() {
@@ -81,19 +62,19 @@ class RegisterActivity1 : AppCompatActivity() {
                 if (profileId != null){
                     val t = Toast.makeText(applicationContext,  "Decent recording!", Toast.LENGTH_LONG)
                     t. show()
-                    FetchFunctions().createEnrollment(body, profileId)
+                    FetchFunctions().identifyEnrollment(body, profileId)
                     startActivity(intent)
                 }
             }
 
             override fun onTick(millisUntilFinished: Long) {
                 val seconds: Long = millisUntilFinished / 1000
-                textViewCount.text = Math.round(millisUntilFinished * 0.001f).toString() + "s"
-                register_progress_bar.progress = seconds.toInt()
+                login_textViewCount.text = Math.round(millisUntilFinished * 0.001f).toString() + "s"
+                login_progress_bar.progress = seconds.toInt()
             }
         }
 
-        audio_enrollment_start.setOnClickListener{
+        login_start_recording.setOnClickListener{
             if (!GeneralFunctions().checkPermission()) {
                 val t = Toast.makeText(applicationContext,  "No Permission!", Toast.LENGTH_LONG)
                 t. show()
@@ -103,7 +84,7 @@ class RegisterActivity1 : AppCompatActivity() {
             }
         }
 
-        audio_enrollment_stop.setOnClickListener{
+        login_stop_recording.setOnClickListener{
             audio.stopRecording()
             val t = Toast.makeText(applicationContext,  "Bad recording!", Toast.LENGTH_LONG)
             t. show()
@@ -116,7 +97,7 @@ class RegisterActivity1 : AppCompatActivity() {
         if(id == android.R.id.home){
             this.finish()
         } else if(id == R.id.form_bar_tick){
-            Toast.makeText(applicationContext,"save",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,"save", Toast.LENGTH_SHORT).show()
         }
 
         return super.onOptionsItemSelected(item)
@@ -127,5 +108,4 @@ class RegisterActivity1 : AppCompatActivity() {
         inflater.inflate(R.menu.form_bar, menu)
         return true
     }
-
 }

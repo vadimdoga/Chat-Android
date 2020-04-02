@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         fun toLogin(){
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity0::class.java)
             startActivity(intent)
         }
         fun toRegister(){
