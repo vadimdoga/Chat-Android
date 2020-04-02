@@ -3,6 +3,7 @@ package com.example.chatapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.chatapp.loginActivities.LoginActivity0
 import com.example.chatapp.registerActivities.RegisterActivity0
 import kotlinx.android.synthetic.main.activity_main.*
 

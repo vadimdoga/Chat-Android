@@ -1,4 +1,4 @@
-package com.example.chatapp
+package com.example.chatapp.loginActivities
 
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -9,10 +9,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.chatapp.AudioRecorder
+import com.example.chatapp.GeneralFunctions
+import com.example.chatapp.R
 import com.example.chatapp.registerActivities.RegisterActivity1
 import com.example.chatapp.requests.FetchFunctions
 import kotlinx.android.synthetic.main.activity_login_1.*
-import kotlinx.android.synthetic.main.activity_register_1.*
 import me.relex.circleindicator.CircleIndicator
 
 class LoginActivity1: AppCompatActivity(){

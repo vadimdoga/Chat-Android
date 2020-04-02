@@ -1,12 +1,12 @@
-package com.example.chatapp
+package com.example.chatapp.loginActivities
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.example.chatapp.requests.FetchFunctions
+import com.example.chatapp.GeneralFunctions
+import com.example.chatapp.R
 import kotlinx.android.synthetic.main.activity_login_0.*
-import kotlinx.android.synthetic.main.activity_login_1.*
 import me.relex.circleindicator.CircleIndicator
 
 

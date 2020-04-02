@@ -22,7 +22,7 @@
             android:name=".MenuActivity"
             android:theme="@style/AppThemeWithBar" />
         <activity
-            android:name=".LoginActivity0"
+            android:name=".loginActivities.LoginActivity0"
             android:theme="@style/AppThemeWithBar"
             android:label="Login"
             />
@@ -49,7 +49,7 @@
             android:theme="@style/AppThemeWithBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".LoginActivity1"
+            android:name=".loginActivities.LoginActivity1"
             android:label="Login"
             android:theme="@style/AppThemeWithBar"
             />
