@@ -3,6 +3,7 @@ package com.example.chatapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.chatapp.register.RegisterActivity0
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         fun toRegister(){
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, RegisterActivity0::class.java)
             startActivity(intent)
         }
         fun toMenu(){

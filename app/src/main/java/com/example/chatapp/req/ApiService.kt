@@ -1,20 +1,59 @@
 package com.example.chatapp.req
 
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import okhttp3.RequestBody
+import okhttp3.Response
+import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Query
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.*
+import java.util.*
 
 
-private val subKey = "56cf040fd80a4687b344077f7566bd83"
-private val accKey = "f71b7467-aa6e-42f7-8fd1-8c4d08da9570"
+private val azureKey = "56cf040fd80a4687b344077f7566bd83"
+private val profileId = "877eb35e-8a56-416b-9cd2-9db729f83b07"
 
 interface ApiService {
-    @Headers("Ocp-Apim-Subscription-Key: 56cf040fd80a4687b344077f7566bd83")
-    @GET("identificationProfiles")
-    fun getProfiles(): Call<List<Profile>>
 
-    @Headers("Ocp-Apim-Subscription-Key: 56cf040fd80a4687b344077f7566bd83")
-    @GET("verificationPhrases?locale=en-US")
-    fun getPhrases(): Call<List<Phrases>>
+    @POST("identificationProfiles")
+    suspend fun createProfile(
+        @Header("Ocp-Apim-Subscription-Key") subKey: String,
+        @Header("Content-Type") contentType: String,
+        @Body body: JsonElement
+    ): CreateProfile
+
+    @POST("identificationProfiles/{identificationProfileId}/enroll")
+    suspend fun createEnrollment(
+        @Header("Ocp-Apim-Subscription-Key") subKey: String,
+        @Header("Content-Type") contentType: String,
+        @Path("identificationProfileId") profileId: String,
+        @Query("shortAudio") shortAudio: Boolean,
+        @Body audioFile: RequestBody
+    ): Void
+
+    @POST("identify")
+    suspend fun identifyEnrollment(
+        @Header("Ocp-Apim-Subscription-Key") subKey: String,
+        @Header("Content-Type") contentType: String,
+        @Query("identificationProfileIds") profileId: String,
+        @Query("shortAudio") shortAudio: Boolean,
+        @Body audioFile: RequestBody
+    ): retrofit2.Response<ResponseBody>
+
+    @GET("operations/{id}")
+    suspend fun getOperationStatus(
+        @Header("Ocp-Apim-Subscription-Key") subKey: String,
+        @Path("id") id: String
+    ): Operations
+
+    @GET("verificationPhrases")
+    suspend fun getPhrases(
+        @Header("Ocp-Apim-Subscription-Key") subKey: String,
+        @Query("locale") locale: String
+    ) : List<Phrases>
+
+
+
 }

@@ -21,18 +21,32 @@
         <activity
             android:name=".MenuActivity"
             android:theme="@style/AppThemeWithBar" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/AppThemeWithBar"
+            />
+        <activity
+            android:name=".register.RegisterActivity0"
+            android:theme="@style/AppThemeWithBar"
+            android:label="Register"
+            />
+        <activity
+            android:name=".register.RegisterActivity1"
+            android:theme="@style/AppThemeWithBar"
+            android:label="Register"
+            />
         <activity
             android:name=".forms.ContactForm"
             android:screenOrientation="portrait"
             android:label="Add Contact"
-            android:theme="@style/AppThemeWithBar" />
+            android:theme="@style/AppThemeWithBar"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".forms.EditProfileForm"
             android:label="Edit Profile"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeWithBar" />
+            android:theme="@style/AppThemeWithBar"
+            tools:ignore="LockedOrientationActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
