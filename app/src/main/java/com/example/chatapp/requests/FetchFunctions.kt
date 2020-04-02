@@ -1,27 +1,15 @@
-package com.example.chatapp
+package com.example.chatapp.requests
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.view.View
 import android.widget.*
-import androidx.lifecycle.ViewModel
-import com.example.chatapp.register.RegisterActivity1
-import com.example.chatapp.req.ApiService
-import com.example.chatapp.req.Operations
+import com.example.chatapp.registerActivities.RegisterActivity1
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
 import kotlinx.coroutines.*
 import okhttp3.RequestBody
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.Serializable
 import java.lang.Exception
-import java.util.*
-import kotlin.collections.ArrayList
 
 class FetchFunctions{
 

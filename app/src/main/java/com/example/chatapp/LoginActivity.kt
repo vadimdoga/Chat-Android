@@ -2,6 +2,7 @@ package com.example.chatapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.chatapp.requests.FetchFunctions
 import kotlinx.android.synthetic.main.activity_login.*
 
 

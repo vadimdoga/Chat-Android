@@ -1,6 +1,5 @@
-package com.example.chatapp.req
+package com.example.chatapp.requests
 
-import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
 class CreateProfile {

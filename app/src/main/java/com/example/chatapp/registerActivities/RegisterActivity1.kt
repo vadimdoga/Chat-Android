@@ -1,7 +1,7 @@
-package com.example.chatapp.register
+package com.example.chatapp.registerActivities
 
 import android.Manifest
-import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -16,7 +16,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.chatapp.AudioRecorder
-import com.example.chatapp.FetchFunctions
+import com.example.chatapp.GeneralFunctions
+import com.example.chatapp.MainActivity
+import com.example.chatapp.requests.FetchFunctions
 import com.example.chatapp.R
 import kotlinx.android.synthetic.main.activity_register_1.*
 import me.relex.circleindicator.CircleIndicator
@@ -36,6 +38,11 @@ class RegisterActivity1 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_1)
+
+        val intent = Intent(this, MainActivity::class.java)
+
+        val indicator: CircleIndicator = findViewById(R.id.register_1_indicator)
+        GeneralFunctions().positionIndicator(2,1, indicator)
 
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -58,9 +65,7 @@ class RegisterActivity1 : AppCompatActivity() {
                 register_textPhrase.text = "Phrase: $phrase"
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
         FetchFunctions().getPhrases(spinnerAdapter)
@@ -68,15 +73,18 @@ class RegisterActivity1 : AppCompatActivity() {
         val fileName:String = getExternalFilesDir(null)?.absolutePath + "/audioFile.wav"
         val audio = AudioRecorder(fileName, applicationContext)
 
-        positionIndicator(1, R.id.audio_enrollment_indicator)
-
         val countDownTimer = object  : CountDownTimer(30000,1000){
             override fun onFinish() {
                 audio.stopRecording()
                 val body = audio.getBinary()
                 val profileId = intent.getStringExtra("profileId")
-                if (profileId != null)
+                if (profileId != null){
+                    val t = Toast.makeText(applicationContext,  "Decent recording!", Toast.LENGTH_LONG)
+                    t. show()
                     FetchFunctions().createEnrollment(body, profileId)
+                    intent.putExtra("profileId", "26644bc6-7149-4772-a8b9-b2ac748dbad2")
+                    startActivity(intent)
+                }
             }
 
             override fun onTick(millisUntilFinished: Long) {
@@ -87,13 +95,19 @@ class RegisterActivity1 : AppCompatActivity() {
         }
 
         audio_enrollment_start.setOnClickListener{
-            if (!checkPermission()) {
+            if (!GeneralFunctions().checkPermission()) {
                 val t = Toast.makeText(applicationContext,  "No Permission!", Toast.LENGTH_LONG)
                 t. show()
             } else {
 //                audio.startRecording()
                 countDownTimer.start()
             }
+        }
+
+        audio_enrollment_stop.setOnClickListener{
+            audio.stopRecording()
+            val t = Toast.makeText(applicationContext,  "Bad recording!", Toast.LENGTH_LONG)
+            t. show()
         }
     }
 
@@ -102,6 +116,8 @@ class RegisterActivity1 : AppCompatActivity() {
 
         if(id == android.R.id.home){
             this.finish()
+        } else if(id == R.id.form_bar_tick){
+            Toast.makeText(applicationContext,"save",Toast.LENGTH_SHORT).show()
         }
 
         return super.onOptionsItemSelected(item)
@@ -113,28 +129,4 @@ class RegisterActivity1 : AppCompatActivity() {
         return true
     }
 
-    private fun positionIndicator(position: Int, indicatorId: Int){
-        val indicator: CircleIndicator = findViewById(indicatorId)
-        indicator.createIndicators(2, position)
-        indicator.animatePageSelected(position)
-    }
-
-    private fun checkPermission(): Boolean {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                    Manifest.permission.RECORD_AUDIO
-                ) != PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED) {
-            val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
-            ActivityCompat.requestPermissions(this, permissions,0)
-            return false
-        } else return true
-    }
 }

@@ -1,15 +1,9 @@
-package com.example.chatapp.req
+package com.example.chatapp.requests
 
 import com.google.gson.JsonElement
-import com.google.gson.JsonObject
 import okhttp3.RequestBody
-import okhttp3.Response
 import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
-import java.util.*
 
 
 private val azureKey = "56cf040fd80a4687b344077f7566bd83"

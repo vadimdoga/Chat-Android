@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/audio_enrollment_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
 
     <me.relex.circleindicator.CircleIndicator
-        android:id="@+id/audio_enrollment_indicator"
+        android:id="@+id/register_1_indicator"
         android:layout_width="300dp"
         android:layout_height="39dp"
         app:ci_drawable="@drawable/ic_circle_selected"
@@ -79,9 +79,9 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:layout_above="@+id/audio_enrollment_indicator"
+        android:layout_above="@+id/register_1_indicator"
         android:hint="Email"
-        app:layout_constraintBottom_toTopOf="@+id/audio_enrollment_indicator"
+        app:layout_constraintBottom_toTopOf="@+id/register_1_indicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:startIconDrawable="@drawable/ic_email">

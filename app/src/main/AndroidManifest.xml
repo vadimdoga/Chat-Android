@@ -26,12 +26,12 @@
             android:theme="@style/AppThemeWithBar"
             />
         <activity
-            android:name=".register.RegisterActivity0"
+            android:name=".registerActivities.RegisterActivity0"
             android:theme="@style/AppThemeWithBar"
             android:label="Register"
             />
         <activity
-            android:name=".register.RegisterActivity1"
+            android:name=".registerActivities.RegisterActivity1"
             android:theme="@style/AppThemeWithBar"
             android:label="Register"
             />
@@ -47,6 +47,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeWithBar"
             tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".GeneralFunctions" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
