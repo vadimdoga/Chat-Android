@@ -12,20 +12,20 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.Exception
 
-class FetchFunctions{
+class AzureFetchFunctions{
 
-    private val api = Retrofit.Builder()
+    private val apiAzure = Retrofit.Builder()
         .baseUrl("https://vadim.cognitiveservices.azure.com/spid/v1.0/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(ApiService::class.java)
+        .create(ApiAzure::class.java)
 
     fun createProfile() {
-        val jsonObj = GeneralFunctions().createJsonBody("locale", "en-us")
+        val jsonObj = GeneralFunctions().createJsonBody(arrayListOf("locale"), arrayListOf("en-us"), 1)
 
         CoroutineScope(Dispatchers.Main).launch {
             kotlin.runCatching {
-                api.createProfile(
+                apiAzure.createProfile(
                     "56cf040fd80a4687b344077f7566bd83",
                     "application/json",
                     jsonObj
@@ -41,7 +41,7 @@ class FetchFunctions{
     fun createEnrollment(body: RequestBody, profileId: String){
         GlobalScope.launch(Dispatchers.Main) {
             kotlin.runCatching {
-                api.createEnrollment(
+                apiAzure.createEnrollment(
                     "56cf040fd80a4687b344077f7566bd83",
                     "application/octet-stream",
                     profileId,
@@ -71,7 +71,7 @@ class FetchFunctions{
     private suspend fun identifyAudio(body: RequestBody, profileId: String): String? {
         var header: String? = null
         try {
-            val res = api.identifyEnrollment(
+            val res = apiAzure.identifyEnrollment(
                 "56cf040fd80a4687b344077f7566bd83",
                 "application/octet-stream",
                 profileId,
@@ -88,7 +88,7 @@ class FetchFunctions{
     private suspend fun getOperationStatus(id: String): Operations?{
         var res: Operations? = null
         try{
-            res = api.getOperationStatus(
+            res = apiAzure.getOperationStatus(
                 "56cf040fd80a4687b344077f7566bd83",
                 id
             )
@@ -100,14 +100,13 @@ class FetchFunctions{
     fun getPhrases(adapter: ArrayAdapter<String>){
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val res = api.getPhrases(
+                val res = apiAzure.getPhrases(
                     "56cf040fd80a4687b344077f7566bd83",
                     "en-US"
                 )
                 res.forEach{
                     RegisterActivity1.addToArray(it.phrase)
                 }
-                println(RegisterActivity1.phrList)
                 adapter.notifyDataSetChanged()
 
             } catch (e: Exception) {

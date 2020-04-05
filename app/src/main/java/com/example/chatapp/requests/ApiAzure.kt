@@ -5,11 +5,7 @@ import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
-
-private val azureKey = "56cf040fd80a4687b344077f7566bd83"
-private val profileId = "877eb35e-8a56-416b-9cd2-9db729f83b07"
-
-interface ApiService {
+interface ApiAzure {
 
     @POST("identificationProfiles")
     suspend fun createProfile(
