@@ -2,6 +2,7 @@ package com.example.chatapp.requests
 
 import android.widget.*
 import com.example.chatapp.GeneralFunctions
+import com.example.chatapp.registerActivities.RegisterActivity0
 import com.example.chatapp.registerActivities.RegisterActivity1
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
@@ -31,7 +32,7 @@ class AzureFetchFunctions{
                     jsonObj
                 )
             }.onSuccess {
-                it.id
+                RegisterActivity0().accessRegister1(it.id)
             }.onFailure {
                 it.printStackTrace()
             }

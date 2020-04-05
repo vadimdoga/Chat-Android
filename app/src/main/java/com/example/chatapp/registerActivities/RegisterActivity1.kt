@@ -73,11 +73,11 @@ class RegisterActivity1 : AppCompatActivity() {
             override fun onFinish() {
                 audio.stopRecording()
                 val body = audio.getBinary()
-                val profileId = intent.getStringExtra("profileId")
-                if (profileId != null){
+                val azureId = intent.getStringExtra("azureId")
+                if (azureId != null){
                     val t = Toast.makeText(applicationContext,  "Decent recording!", Toast.LENGTH_LONG)
                     t. show()
-                    AzureFetchFunctions().createEnrollment(body, profileId)
+                    AzureFetchFunctions().createEnrollment(body, azureId)
                     startActivity(intent)
                 }
             }
@@ -90,11 +90,12 @@ class RegisterActivity1 : AppCompatActivity() {
         }
 
         audio_enrollment_start.setOnClickListener{
+            //todo: checkpermission return null -> refactor
             if (!GeneralFunctions().checkPermission()) {
                 val t = Toast.makeText(applicationContext,  "No Permission!", Toast.LENGTH_LONG)
                 t. show()
             } else {
-//                audio.startRecording()
+                audio.startRecording()
                 countDownTimer.start()
             }
         }
