@@ -13,7 +13,7 @@ import com.example.chatapp.AudioRecorder
 import com.example.chatapp.GeneralFunctions
 import com.example.chatapp.R
 import com.example.chatapp.registerActivities.RegisterActivity1
-import com.example.chatapp.requests.FetchFunctions
+import com.example.chatapp.requests.AzureFetchFunctions
 import kotlinx.android.synthetic.main.activity_login_1.*
 import me.relex.circleindicator.CircleIndicator
 
@@ -53,18 +53,18 @@ class LoginActivity1: AppCompatActivity(){
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        FetchFunctions().getPhrases(spinnerAdapter)
+        AzureFetchFunctions().getPhrases(spinnerAdapter)
 
 
         val countDownTimer = object  : CountDownTimer(30000,1000){
             override fun onFinish() {
                 audio.stopRecording()
                 val body = audio.getBinary()
-                val profileId = intent.getStringExtra("profileId")
-                if (profileId != null){
+                val azureId = intent.getStringExtra("azureId")
+                if (azureId != null){
                     val t = Toast.makeText(applicationContext,  "Decent recording!", Toast.LENGTH_LONG)
                     t. show()
-                    FetchFunctions().identifyEnrollment(body, profileId)
+                    AzureFetchFunctions().identifyEnrollment(body, azureId)
                     startActivity(intent)
                 }
             }
@@ -81,7 +81,7 @@ class LoginActivity1: AppCompatActivity(){
                 val t = Toast.makeText(applicationContext,  "No Permission!", Toast.LENGTH_LONG)
                 t. show()
             } else {
-//                audio.startRecording()
+                audio.startRecording()
                 countDownTimer.start()
             }
         }

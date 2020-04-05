@@ -29,3 +29,8 @@ class Phrases {
     @SerializedName("phrase")
     val phrase: String = ""
 }
+
+class AzureId {
+    @SerializedName("azureId")
+    val id: String = ""
+}

@@ -1,8 +1,6 @@
 package com.example.chatapp.registerActivities
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.Menu
@@ -13,12 +11,10 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.example.chatapp.AudioRecorder
 import com.example.chatapp.GeneralFunctions
 import com.example.chatapp.MainActivity
-import com.example.chatapp.requests.FetchFunctions
+import com.example.chatapp.requests.AzureFetchFunctions
 import com.example.chatapp.R
 import kotlinx.android.synthetic.main.activity_register_1.*
 import me.relex.circleindicator.CircleIndicator
@@ -68,7 +64,7 @@ class RegisterActivity1 : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        FetchFunctions().getPhrases(spinnerAdapter)
+        AzureFetchFunctions().getPhrases(spinnerAdapter)
 
         val fileName:String = getExternalFilesDir(null)?.absolutePath + "/audioFile.wav"
         val audio = AudioRecorder(fileName, applicationContext)
@@ -81,7 +77,7 @@ class RegisterActivity1 : AppCompatActivity() {
                 if (profileId != null){
                     val t = Toast.makeText(applicationContext,  "Decent recording!", Toast.LENGTH_LONG)
                     t. show()
-                    FetchFunctions().createEnrollment(body, profileId)
+                    AzureFetchFunctions().createEnrollment(body, profileId)
                     startActivity(intent)
                 }
             }
@@ -116,6 +112,7 @@ class RegisterActivity1 : AppCompatActivity() {
         if(id == android.R.id.home){
             this.finish()
         } else if(id == R.id.form_bar_tick){
+
             Toast.makeText(applicationContext,"save",Toast.LENGTH_SHORT).show()
         }
 

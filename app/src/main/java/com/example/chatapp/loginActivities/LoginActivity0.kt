@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.chatapp.GeneralFunctions
 import com.example.chatapp.R
+import com.example.chatapp.requests.ChatFetchFunctions
 import kotlinx.android.synthetic.main.activity_login_0.*
 import me.relex.circleindicator.CircleIndicator
 
@@ -19,16 +20,14 @@ class LoginActivity0 : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         val indicator: CircleIndicator = findViewById(R.id.login_0_indicator)
-        GeneralFunctions().positionIndicator(2,0, indicator)
+        GeneralFunctions().positionIndicator(2, 0, indicator)
 
         //add fetch function to identify profile. Firebase
 
-        login_verify_email.setOnClickListener{
-            val intent = Intent(this, LoginActivity1::class.java)
-            intent.putExtra("profileId", "26644bc6-7149-4772-a8b9-b2ac748dbad2")
-            startActivity(intent)
+        login_verify_email.setOnClickListener {
+            val email = email_input_login.text.toString()
+            ChatFetchFunctions().getUser(email)
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -39,6 +38,12 @@ class LoginActivity0 : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun accessLogin1(id: String){
+        val intent = Intent(this, LoginActivity1::class.java)
+        intent.putExtra("azureId", id)
+        startActivity(intent)
     }
 
 }
