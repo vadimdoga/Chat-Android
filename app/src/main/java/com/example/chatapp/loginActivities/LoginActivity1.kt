@@ -1,5 +1,9 @@
 package com.example.chatapp.loginActivities
 
+import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.Menu
@@ -9,22 +13,42 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.chatapp.AudioRecorder
 import com.example.chatapp.GeneralFunctions
+import com.example.chatapp.MenuActivity
 import com.example.chatapp.R
 import com.example.chatapp.registerActivities.RegisterActivity1
 import com.example.chatapp.requests.AzureFetchFunctions
+import com.example.chatapp.requests.Confidence
 import kotlinx.android.synthetic.main.activity_login_1.*
 import me.relex.circleindicator.CircleIndicator
 
 class LoginActivity1: AppCompatActivity(){
+    companion object GlobalCnt{
+        private lateinit var cntMenu: Context
 
+        fun addCnt(cntNew: Context){
+            cntMenu = cntNew
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_1)
 
         val indicator: CircleIndicator = findViewById(R.id.login_1_indicator)
         GeneralFunctions().positionIndicator(2,1, indicator)
+
+        addCnt(this)
+
+        val azureId: String?
+        azureId = if (savedInstanceState == null) {
+            val extras = getIntent().extras
+            extras?.getString("azureId")
+        } else {
+            savedInstanceState.getSerializable("azureId") as String?
+        }
 
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -56,16 +80,14 @@ class LoginActivity1: AppCompatActivity(){
         AzureFetchFunctions().getPhrases(spinnerAdapter)
 
 
-        val countDownTimer = object  : CountDownTimer(30000,1000){
+        val countDownTimer = object  : CountDownTimer(10000,1000){
             override fun onFinish() {
                 audio.stopRecording()
                 val body = audio.getBinary()
-                val azureId = intent.getStringExtra("azureId")
                 if (azureId != null){
                     val t = Toast.makeText(applicationContext,  "Decent recording!", Toast.LENGTH_LONG)
                     t. show()
                     AzureFetchFunctions().identifyEnrollment(body, azureId)
-                    startActivity(intent)
                 }
             }
 
@@ -77,7 +99,20 @@ class LoginActivity1: AppCompatActivity(){
         }
 
         login_start_recording.setOnClickListener{
-            if (!GeneralFunctions().checkPermission()) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.RECORD_AUDIO
+                ) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED) {
+                val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                ActivityCompat.requestPermissions(this, permissions,0)
                 val t = Toast.makeText(applicationContext,  "No Permission!", Toast.LENGTH_LONG)
                 t. show()
             } else {
@@ -93,21 +128,21 @@ class LoginActivity1: AppCompatActivity(){
         }
     }
 
+    fun accessMenu(status: String){
+        println(status)
+        if(status == "High"){
+            val localIntent = Intent(cntMenu, MenuActivity::class.java)
+            cntMenu.startActivity(localIntent)
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id: Int = item.itemId
 
         if(id == android.R.id.home){
             this.finish()
-        } else if(id == R.id.form_bar_tick){
-            Toast.makeText(applicationContext,"save", Toast.LENGTH_SHORT).show()
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.form_bar, menu)
-        return true
     }
 }

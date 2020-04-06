@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.chatapp.GeneralFunctions
 import com.example.chatapp.loginActivities.LoginActivity0
 import com.example.chatapp.loginActivities.LoginActivity1
+import com.example.chatapp.registerActivities.RegisterActivity1
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -25,8 +26,10 @@ class ChatFetchFunctions {
             kotlin.runCatching {
                 apiChat.createUser(jsonObj)
             }.onSuccess {
-                Log.e("Res", it.status)
+                Log.e("Response", it.message())
+                RegisterActivity1().profileExists(true)
             }.onFailure {
+                RegisterActivity1().profileExists(false)
                 it.printStackTrace()
             }
         }

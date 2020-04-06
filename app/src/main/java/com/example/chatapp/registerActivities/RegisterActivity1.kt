@@ -1,6 +1,9 @@
 package com.example.chatapp.registerActivities
 
+import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.Menu
@@ -11,23 +14,50 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.chatapp.AudioRecorder
 import com.example.chatapp.GeneralFunctions
 import com.example.chatapp.MainActivity
-import com.example.chatapp.requests.AzureFetchFunctions
 import com.example.chatapp.R
+import com.example.chatapp.requests.AzureFetchFunctions
+import com.example.chatapp.requests.ChatFetchFunctions
+import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.activity_login_0.*
 import kotlinx.android.synthetic.main.activity_register_1.*
 import me.relex.circleindicator.CircleIndicator
+import org.w3c.dom.Text
+
 
 class RegisterActivity1 : AppCompatActivity() {
 
     companion object {
         val phrList = arrayListOf<String>()
+        private lateinit var globalAzureId: String
+        private lateinit var cntRegister: Context
+        private lateinit var viewRegister: TextInputEditText
+        private var recordingStatus: Boolean = false
 
         fun addToArray(el: String){
             if (!phrList.contains(el)){
                 phrList.add(el)
             }
+        }
+
+        fun setView(v: TextInputEditText){
+            viewRegister = v
+        }
+
+        fun setCnt(newCnt: Context){
+            cntRegister = newCnt
+        }
+
+        fun setAzureId(id: String){
+            globalAzureId = id
+        }
+
+        fun setStatus(st: Boolean){
+            recordingStatus = st
         }
     }
 
@@ -35,10 +65,23 @@ class RegisterActivity1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_1)
 
-        val intent = Intent(this, MainActivity::class.java)
-
         val indicator: CircleIndicator = findViewById(R.id.register_1_indicator)
         GeneralFunctions().positionIndicator(2,1, indicator)
+
+        setCnt(this)
+        setView(email_input_register)
+
+        val azureId: String?
+        azureId = if (savedInstanceState == null) {
+            val extras = getIntent().extras
+            extras?.getString("azureId")
+        } else {
+            savedInstanceState.getSerializable("azureId") as String?
+        }
+
+        if (azureId != null) {
+            setAzureId(azureId)
+        }
 
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -73,12 +116,8 @@ class RegisterActivity1 : AppCompatActivity() {
             override fun onFinish() {
                 audio.stopRecording()
                 val body = audio.getBinary()
-                val azureId = intent.getStringExtra("azureId")
                 if (azureId != null){
-                    val t = Toast.makeText(applicationContext,  "Decent recording!", Toast.LENGTH_LONG)
-                    t. show()
-                    AzureFetchFunctions().createEnrollment(body, azureId)
-                    startActivity(intent)
+                    AzureFetchFunctions().createVerifyEnrollment(body, azureId)
                 }
             }
 
@@ -90,8 +129,20 @@ class RegisterActivity1 : AppCompatActivity() {
         }
 
         audio_enrollment_start.setOnClickListener{
-            //todo: checkpermission return null -> refactor
-            if (!GeneralFunctions().checkPermission()) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.RECORD_AUDIO
+                ) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED) {
+                val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                ActivityCompat.requestPermissions(this, permissions,0)
                 val t = Toast.makeText(applicationContext,  "No Permission!", Toast.LENGTH_LONG)
                 t. show()
             } else {
@@ -101,9 +152,31 @@ class RegisterActivity1 : AppCompatActivity() {
         }
 
         audio_enrollment_stop.setOnClickListener{
+            //todo: stop timer and restart it
             audio.stopRecording()
             val t = Toast.makeText(applicationContext,  "Bad recording!", Toast.LENGTH_LONG)
             t. show()
+        }
+    }
+
+    fun verifyEnrollment(status: Boolean){
+        if(status){
+            setStatus(true)
+            val t = Toast.makeText(cntRegister,  "Decent recording!", Toast.LENGTH_LONG)
+            t. show()
+        } else {
+            setStatus(false)
+            val t = Toast.makeText(cntRegister,  "Record Again!", Toast.LENGTH_LONG)
+            t. show()
+        }
+    }
+
+    fun profileExists(status: Boolean){
+        if(status){
+            val intent = Intent(cntRegister, MainActivity::class.java)
+            cntRegister.startActivity(intent)
+        } else {
+            viewRegister.setText("AzureId or email exists!")
         }
     }
 
@@ -113,8 +186,10 @@ class RegisterActivity1 : AppCompatActivity() {
         if(id == android.R.id.home){
             this.finish()
         } else if(id == R.id.form_bar_tick){
-
-            Toast.makeText(applicationContext,"save",Toast.LENGTH_SHORT).show()
+            if(recordingStatus){
+                val email = email_input_register.text.toString()
+                ChatFetchFunctions().createUser(email, globalAzureId)
+            }
         }
 
         return super.onOptionsItemSelected(item)

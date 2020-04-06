@@ -10,7 +10,7 @@ interface ApiChat{
     @POST("/user/register")
     suspend fun createUser(
         @Body body: JsonElement
-    ): Operations
+    ): retrofit2.Response<ResponseBody>
 
     @GET("/user/login")
     suspend fun getUser(

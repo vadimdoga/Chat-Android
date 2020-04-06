@@ -74,9 +74,9 @@
             android:layout_height="match_parent"
             android:background="@drawable/circle_shape"
             android:indeterminate="false"
-            android:max="30"
+            android:max="10"
             android:min="0"
-            android:progress="30"
+            android:progress="10"
             android:progressDrawable="@drawable/progress_bar_d" />
 
         <TextView
@@ -85,7 +85,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="40sp"
-            android:text="30s" />
+            android:text="10s" />
 
     </RelativeLayout>
 

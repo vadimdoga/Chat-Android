@@ -33,12 +33,16 @@ class RegisterActivity0 : AppCompatActivity() {
         val indicator: CircleIndicator = findViewById(R.id.register_0_indicator)
         GeneralFunctions().positionIndicator(2,0, indicator)
 
-        next_page_btn.setOnClickListener{
-//            AzureFetchFunctions().createProfile()
-            val localIntent = Intent(this, RegisterActivity1::class.java)
-            localIntent.putExtra("azureId", "1")
-            startActivity(localIntent)
+        register_createProfile_btn.setOnClickListener{
+            AzureFetchFunctions().createProfile()
         }
+
+        next_page_btn.setOnClickListener{
+            val azureId = register_profileId.text.toString()
+            if(azureId != "")
+                accessRegister1(azureId)
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

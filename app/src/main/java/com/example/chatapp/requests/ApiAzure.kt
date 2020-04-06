@@ -21,7 +21,7 @@ interface ApiAzure {
         @Path("identificationProfileId") profileId: String,
         @Query("shortAudio") shortAudio: Boolean,
         @Body audioFile: RequestBody
-    ): Void
+    ): retrofit2.Response<ResponseBody>
 
     @POST("identify")
     suspend fun identifyEnrollment(
@@ -43,6 +43,12 @@ interface ApiAzure {
         @Header("Ocp-Apim-Subscription-Key") subKey: String,
         @Query("locale") locale: String
     ) : List<Phrases>
+
+    @GET("identificationProfiles/{identificationProfileId}")
+    suspend fun getProfile(
+        @Header("Ocp-Apim-Subscription-Key") subKey: String,
+        @Path("identificationProfileId") profileId: String
+    ) : GetAzureProfile
 
 
 
