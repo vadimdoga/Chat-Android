@@ -115,6 +115,7 @@ class RegisterActivity1 : AppCompatActivity() {
         val countDownTimer = object  : CountDownTimer(30000,1000){
             override fun onFinish() {
                 audio.stopRecording()
+                register_textViewCount.text = "Wait!"
                 val body = audio.getBinary()
                 if (azureId != null){
                     AzureFetchFunctions().createVerifyEnrollment(body, azureId)
@@ -123,7 +124,7 @@ class RegisterActivity1 : AppCompatActivity() {
 
             override fun onTick(millisUntilFinished: Long) {
                 val seconds: Long = millisUntilFinished / 1000
-                textViewCount.text = Math.round(millisUntilFinished * 0.001f).toString() + "s"
+                register_textViewCount.text = Math.round(millisUntilFinished * 0.001f).toString() + "s"
                 register_progress_bar.progress = seconds.toInt()
             }
         }
@@ -152,8 +153,9 @@ class RegisterActivity1 : AppCompatActivity() {
         }
 
         audio_enrollment_stop.setOnClickListener{
-            //todo: stop timer and restart it
+            countDownTimer.cancel()
             audio.stopRecording()
+            register_textViewCount.text = "Try Again!"
             val t = Toast.makeText(applicationContext,  "Bad recording!", Toast.LENGTH_LONG)
             t. show()
         }

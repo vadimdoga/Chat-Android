@@ -64,7 +64,7 @@
             android:progressDrawable="@drawable/progress_bar_d" />
 
         <TextView
-            android:id="@+id/textViewCount"
+            android:id="@+id/register_textViewCount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"

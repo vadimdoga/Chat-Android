@@ -5,4 +5,6 @@
     <color name="colorMediumBlue">#76b4bd</color>
     <color name="colorDarkBlue">#58668b</color>
     <color name="colorDarkGray">#5e5656</color>
+    <color name="colorMediumYellow">#f9bd2e</color>
+    <color name="colorMediumPink">#f88379</color>
 </resources>

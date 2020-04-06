@@ -15,7 +15,7 @@
             android:layout_above="@+id/textView2"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="40dp"
             android:text="Instructions:"
             android:textColor="@color/colorDarkBlue"
             android:textSize="32sp"
@@ -30,9 +30,10 @@
             android:id="@+id/textView2"
             android:layout_width="344dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="60dp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut venenatis, est ut congue malesuada, nulla magna malesuada turpis, eget ultrices justo lectus quis enim. Nam interdum ultrices enim ut bibendum. Sed turpis dui, convallis et congue ac, semper sit amet justo."
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/textView3"
@@ -80,20 +81,6 @@
             app:layout_constraintTop_toTopOf="@+id/textField"
             app:layout_constraintVertical_bias="0.625"
             android:contentDescription="verify_email" />
-
-        <TextView
-            android:id="@+id/login_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="112dp"
-            android:text="Status:"
-            android:textColor="@color/colorDarkBlue"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textField"
-            app:layout_constraintHorizontal_bias="0.016"
-            app:layout_constraintStart_toStartOf="@+id/textField" />
 
         <me.relex.circleindicator.CircleIndicator
             android:id="@+id/login_0_indicator"

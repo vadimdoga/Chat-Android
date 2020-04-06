@@ -32,6 +32,7 @@ class LoginActivity1: AppCompatActivity(){
         fun addCnt(cntNew: Context){
             cntMenu = cntNew
         }
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,10 +84,9 @@ class LoginActivity1: AppCompatActivity(){
         val countDownTimer = object  : CountDownTimer(10000,1000){
             override fun onFinish() {
                 audio.stopRecording()
+                login_textViewCount.text = "Wait!"
                 val body = audio.getBinary()
                 if (azureId != null){
-                    val t = Toast.makeText(applicationContext,  "Decent recording!", Toast.LENGTH_LONG)
-                    t. show()
                     AzureFetchFunctions().identifyEnrollment(body, azureId)
                 }
             }
@@ -123,16 +123,18 @@ class LoginActivity1: AppCompatActivity(){
 
         login_stop_recording.setOnClickListener{
             audio.stopRecording()
-            val t = Toast.makeText(applicationContext,  "Bad recording!", Toast.LENGTH_LONG)
-            t. show()
+            countDownTimer.cancel()
+            login_textViewCount.text = "Try Again!"
         }
     }
 
     fun accessMenu(status: String){
-        println(status)
         if(status == "High"){
             val localIntent = Intent(cntMenu, MenuActivity::class.java)
             cntMenu.startActivity(localIntent)
+        } else {
+            val t = Toast.makeText(cntMenu,  "Voice Negative!", Toast.LENGTH_LONG)
+            t. show()
         }
     }
 
