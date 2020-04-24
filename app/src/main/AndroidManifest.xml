@@ -20,42 +20,42 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name=".MenuActivity"
+            android:name=".view.ui.ChatMenuActivity"
             android:theme="@style/AppThemeWithBar" />
         <activity
-            android:name=".loginActivities.LoginActivity0"
+            android:name=".view.ui.LoginActivity0"
             android:theme="@style/AppThemeWithBar"
             android:label="Login">
         </activity>
 
         <activity
-            android:name=".registerActivities.RegisterActivity0"
+            android:name=".view.ui.RegisterActivity0"
             android:theme="@style/AppThemeWithBar"
             android:label="Register"
             />
         <activity
-            android:name=".registerActivities.RegisterActivity1"
+            android:name=".view.ui.RegisterActivity1"
             android:theme="@style/AppThemeWithBar"
             android:label="Register"
             />
         <activity
-            android:name=".forms.ContactForm"
+            android:name=".view.ui.form.ContactsFormActivity"
             android:screenOrientation="portrait"
             android:label="Add Contact"
             android:theme="@style/AppThemeWithBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".forms.EditProfileForm"
+            android:name=".view.ui.form.ProfileFormActivity"
             android:label="Edit Profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeWithBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".loginActivities.LoginActivity1"
+            android:name=".view.ui.LoginActivity1"
             android:label="Login"
             android:theme="@style/AppThemeWithBar"
             />
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.ui.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
