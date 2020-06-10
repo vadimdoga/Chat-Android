@@ -5,12 +5,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import com.example.chatapp.R
 import com.example.chatapp.utils.GeneralFunctions
 import com.example.chatapp.viewmodel.form.ContactsFormViewModel
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.contact_form.*
 
 class ContactsFormActivity : AppCompatActivity() {
